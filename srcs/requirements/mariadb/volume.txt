@@ -1,0 +1,28 @@
+Create a volume:
+	$ docker volume create my-vol
+
+List volumes:
+	$ docker volume ls
+
+Inspect a volume:
+	$ docker volume inspect my-vol
+
+Running docker compose up for the first time creates a volume. 
+Docker reuses the same volume when you run the command subsequently.
+creates the volume if it doesn't already exist. 
+
+Otherwise, the existing volume is used and is 
+recreated if it's manually deleted outside of Compose.
+	docker compose up 
+
+Remove a volume:
+$ docker container stop my-vol
+$ docker container rm my-vol
+$ docker volume rm my-vol
+
+
+ docker service create -d \
+  --replicas=4 \
+  --name devtest-service \
+  --mount source=myvol2,target=/app \
+  nginx:latest

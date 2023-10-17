@@ -1,0 +1,21 @@
+A docker-network that establishes the connection between your containers
+our containers have to restart in case of a crash.
+
+Read about how daemons work and whether it’s
+a good idea to use them or not.
+
+The network line must be present in your docker-compose.yml file.
+
+Your containers musn’t be started with a command running an infinite
+loop. Thus, this also applies to any command used as entrypoint, or
+used in entrypoint scripts.
+
+PID 1 and the best practices for writing Dockerfiles.
+
+This domain name must be dyeboa.42.fr moet werken
+
+It is mandatory to use environment variables.
+
+Also, it is strongly recommended to use a .env file to store
+environment variables. The .env file should be located at the root
+of the srcs directory.

@@ -1,0 +1,2 @@
+A Docker container that contains MariaDB only without nginx.
+Dockerfiles, one per service
