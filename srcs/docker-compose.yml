@@ -1,0 +1,47 @@
+#https://docs.docker.com/compose/environment-variables/env-file/
+#https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/wordpress/README.md
+#https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-3-defining-services-with-docker-compose
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+    - ./wordpress:/var/www/html
+    networks:
+    - app-wordpress
+
+  mariadb:
+    container_name: mariadb
+    image: mysql:latest
+    environment:
+    - MARIADB_DATABASE=wordpress
+    volumes:
+    - ~/data/mariadb:/var/lib/mysql
+    restart: always
+    networks:
+    - app-wordpress
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    restart: always
+    environment:
+    - WORDPRESS_DB_NAME=wordpress
+    - WORDPRESS_DB_USER=$MYSQL_USER
+    - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+    volumes:
+    - ~/data/wordpress:/var/www/html
+    networks:
+    - app-wordpress
+
+# The user-defined bridge network app-network enables communication between 
+# your containers since they are on the same Docker daemon host. 
+
+networks:
+  app-wordpress:
+    external: true

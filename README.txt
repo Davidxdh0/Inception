@@ -30,6 +30,9 @@ In a production environment you may want to use "docker container stop"
 to gracefully stop the container and leave it on the host. 
 You can then use "docker container rm" to permanently remove it.
 
+PID1 vangt alle childs op.
+
+
 https://www.techrepublic.com/article/how-to-build-a-docker-compose-file/
 https://www.linode.com/docs/guides/how-to-use-docker-compose/
 https://docs.docker.com/compose/environment-variables/env-file/
