@@ -8,12 +8,13 @@ services:
     image: nginx:latest
     container_name: nginx
     ports:
-      - "80:80"
       - "443:443"
+      - "80:80"
     volumes:
     - ./wordpress:/var/www/html
     networks:
-    - app-wordpress
+      app-wordpress:
+#       ipv4_address: 127.0.0.10
 
   mariadb:
     container_name: mariadb
@@ -24,7 +25,8 @@ services:
     - ~/data/mariadb:/var/lib/mysql
     restart: always
     networks:
-    - app-wordpress
+      app-wordpress:
+#       ipv4_address: 127.0.0.20
 
   wordpress:
     image: wordpress:latest
@@ -37,7 +39,8 @@ services:
     volumes:
     - ~/data/wordpress:/var/www/html
     networks:
-    - app-wordpress
+      app-wordpress:
+#       ipv4_address: 127.0.0.30
 
 # The user-defined bridge network app-network enables communication between 
 # your containers since they are on the same Docker daemon host. 
