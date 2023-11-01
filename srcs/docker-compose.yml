@@ -13,7 +13,7 @@ services:
     volumes:
     - ./wordpress:/var/www/html
     networks:
-    - app-wordpress
+    - app-inception
 
   mariadb:
     container_name: mariadb
@@ -24,7 +24,7 @@ services:
     - ~/data/mariadb:/var/lib/mysql
     restart: always
     networks:
-    - app-wordpress
+    - app-inception
 
   wordpress:
     image: wordpress:latest
@@ -37,11 +37,11 @@ services:
     volumes:
     - ~/data/wordpress:/var/www/html
     networks:
-    - app-wordpress
+    - app-inception
 
 # The user-defined bridge network app-network enables communication between 
 # your containers since they are on the same Docker daemon host. 
 
 networks:
-  app-wordpress:
+  app-inception:
     external: true
