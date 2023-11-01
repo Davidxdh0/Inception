@@ -1,0 +1,706 @@
+/*Variables*/
+:root {
+	/*Fonts*/
+	/*Colors*/
+		--fontcolor: #fff;
+		--headercolor: #111;
+		--maincolor: #222;
+		--bodycolor: #333;
+		--boxcolor: #444;
+		--glowcolor: #666;
+		--highlight: #00f;
+	/*Shadows*/
+		--shadow: 0 10px 6px rgba(0, 0, 0, 0.5);
+	/*Borders*/
+		--border: 30px;
+	/*Animation*/
+		--anispeed: all 0.3s;
+	}
+	
+	/*Elements*/
+	body {
+		margin: 0;
+		font-family: Arial, sans-serif;
+		background-color: var(--bodycolor);
+		color: var(--fontcolor);
+	}
+	
+	header {
+		background-color: var(--headercolor);
+		padding: 20px;
+		text-align: center;
+		box-shadow: var(--shadow);
+	}
+	
+	nav {
+		/*margin-top: 10px;*/
+	}
+	
+	nav ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+	}
+	
+	nav ul li {
+		margin: 0 10px;
+		position: relative;
+	}
+	
+	nav ul li a {
+		color: var(--fc1);
+		text-decoration: none;
+		font-weight: bold;
+		padding: 10px;
+		transition: var(--anispeed);
+		position: relative;
+	}
+	
+	nav ul li a::before, nav ul li a::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		bottom: -5px;
+		background-color: var(--highlight);
+		transform: scaleX(0);
+		transition: var(--anispeed);
+	}
+	
+	nav ul li a::before {
+		left: 0;
+		transform-origin: left;
+	}
+	
+	nav ul li a::after {
+		right: 0;
+		transform-origin: right;
+	}
+	
+	nav ul li a:hover::before,
+	nav ul li a:hover::after {
+		transform: scaleX(1);
+	}
+	
+	main {
+		padding: 20px;
+		background-color: var(--maincolor);
+		border-radius: var(--border);
+		box-shadow: var(--shadow);
+		margin: 20px auto;
+		max-width: 90%;
+	}
+	
+	.grid-top-image {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-gap: 20px;
+		margin-top: 40px;
+	}
+	
+	.grid-top-image-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 20px;
+		background-color: var(--boxcolor);
+		border-radius: var(--border);
+		transition: var(--anispeed);
+		box-shadow: var(--shadow);
+	}
+	
+	.grid-top-image-item .icon {
+		font-size: 48px;
+		color: var(--fc1);
+		margin-bottom: 10px;
+		transition: var(--anispeed);
+	}
+	
+	.grid-top-image-item h3 {
+		color: var(--fc1);
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+	
+	.grid-top-image-item p {
+		font-size: 16px;
+		line-height: 1.5;
+		margin-bottom: 0;
+	}
+	
+	.grid-top-image-item img {
+		max-width: 100%;
+		border-radius: var(--border);
+		margin-bottom: 10px;
+	}
+	
+	.grid-small {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		grid-gap: 20px;
+		margin-top: 40px;
+	}
+	
+	.grid-small-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 10px;
+		background-color: var(--boxcolor);
+		border-radius: var(--border);
+		transition: var(--anispeed);
+		box-shadow: var(--shadow);
+	}
+	
+	.grid-small-item .icon {
+		font-size: 36px;
+		color: var(--fc1);
+		margin-bottom: 10px;
+		transition: var(--anispeed);
+	}
+	
+	.grid-small-item h3 {
+		color: var(--fc1);
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+	
+	.grid-small-item p {
+		font-size: 12px;
+		margin-bottom: 0;
+	}
+	
+	.grid-left-image {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 20px;
+		margin-top: 40px;
+	}
+	
+	.grid-left-image-item {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		padding: 10px;
+		background-color: var(--boxcolor);
+		border-radius: var(--border);
+		transition: var(--anispeed);
+		box-shadow: var(--shadow);
+	}
+	
+	.grid-left-image-item .icon {
+		font-size: 36px;
+		color: var(--fc1);
+		margin-right: 10px;
+		transition: var(--anispeed);
+	}
+	
+	.grid-left-image-item h3 {
+		color: var(--fc1);
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+	
+	.grid-left-image-item p {
+		font-size: 12px;
+		margin-bottom: 0;
+	}
+	
+	.grid-left-image-item img {
+		max-width: 50%;
+		border-radius: var(--border);
+	}
+	
+	.grid-left-image-item-content {
+		flex: 1;
+	}
+	
+	/*Move Effect*/
+	.effect-moveup:hover {
+		background-color: var(--glowcolor);
+		transform: translateY(-25px);
+		box-shadow: var(--shadow);
+	}
+	.effect-movedown:hover {
+		background-color: var(--glowcolor);
+		transform: translateY(25px);
+		box-shadow: var(--shadow);
+	}
+	.effect-moveleft:hover {
+		background-color: var(--glowcolor);
+		transform: translateX(-25px);
+		box-shadow: var(--shadow);
+	}
+	.effect-moveright:hover {
+		background-color: var(--glowcolor);
+		transform: translateX(25px);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Scale Effect*/
+	.effect-scaleup:hover {
+		background-color: var(--glowcolor);
+		transform: scale(1.1);
+		box-shadow: var(--shadow);
+	}
+	.effect-scaledown:hover {
+		background-color: var(--glowcolor);
+		transform: scale(0.9);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Tilt Effect*/
+	
+	.effect-tiltcw:hover {
+		background-color: var(--glowcolor);
+		transform: rotate(360deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-tiltccw:hover {
+		background-color: var(--glowcolor);
+		transform: rotate(-360deg);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Skew Effect*/
+	
+	.effect-skewxp:hover {
+		background-color: var(--glowcolor);
+		transform: skewX(10deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-skewxn:hover {
+		background-color: var(--glowcolor);
+		transform: skewX(-10deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-skewyp:hover {
+		background-color: var(--glowcolor);
+		transform: skewY(10deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-skewyn:hover {
+		background-color: var(--glowcolor);
+		transform: skewY(-10deg);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Flip Effect*/
+	
+	.effect-flipyp:hover {
+		background-color: var(--glowcolor);
+		transform: rotateY(360deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-flipyn:hover {
+		background-color: var(--glowcolor);
+		transform: rotateY(-360deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-flipxp:hover {
+		background-color: var(--glowcolor);
+		transform: rotateX(360deg);
+		box-shadow: var(--shadow);
+	}
+	.effect-flipxn:hover {
+		background-color: var(--glowcolor);
+		transform: rotateX(-360deg);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Glow Effect*/
+	
+	.effect-glow:hover {
+		background-color: var(--glowcolor);
+		box-shadow: var(--shadow);
+	}
+	
+	/*Shutter Effect*/
+	
+	.effect-hor-shutter-close {
+		background-color: var(--glowcolor);
+		transform: scaleX(1);
+	}
+	.effect-hor-shutter-close:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleX(1);
+		transition: var(--anispeed);
+	}
+	.effect-hor-shutter-close:hover::before { 
+		transform: scaleX(0);
+	}
+	.effect-hor-shutter-open {
+		background-color: var(--boxcolor);
+		transform: scaleX(1);
+	}
+	.effect-hor-shutter-open:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--glowcolor);
+		transform: scaleX(0);
+		transition: var(--anispeed);
+	}
+	.effect-hor-shutter-open:hover::before {
+		transform: scaleX(1);
+	}
+	
+	.effect-ver-shutter-close {
+		background-color: var(--glowcolor);
+		transform: scaleY(1);
+	}
+	.effect-ver-shutter-close:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1);
+		transition: var(--anispeed);
+	}
+	.effect-ver-shutter-close:hover::before {
+		transform: scaleY(0);
+	}
+	
+	.effect-ver-shutter-open {
+		background-color: var(--boxcolor);
+		transform: scaleY(1);
+	}
+	.effect-ver-shutter-open:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--glowcolor);
+		transform: scaleY(0);
+		transition: var(--anispeed);
+	}
+	.effect-ver-shutter-open:hover::before {
+		transform: scaleY(1);
+	}
+	.effect-dia-shutter-close {
+		background-color: var(--glowcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-dia-shutter-close:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+		transition: var(--anispeed);
+	}
+	.effect-dia-shutter-close:hover::before {
+		transform: scaleY(0) scaleX(0);
+	}
+	
+	.effect-dia-shutter-open {
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-dia-shutter-open:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--glowcolor);
+		transform: scaleY(0) scaleX(0);
+		transition: var(--anispeed);
+	}
+	.effect-dia-shutter-open:hover::before {
+		transform: scaleY(1) scaleX(1);
+	}
+	
+	/*Sweep Effect*/
+	
+	.effect-sweep-up {
+		background-color: var(--glowcolor);
+		transform: scaleY(1);
+	}
+	.effect-sweep-up:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1);
+		transition: var(--anispeed);
+		transform-origin: 100% 0;
+	}
+	.effect-sweep-up:hover::before { 
+		transform: scaleY(0);
+	}
+	.effect-sweep-down {
+		background-color: var(--glowcolor);
+		transform: scaleY(1);
+	}
+	.effect-sweep-down:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1);
+		transition: var(--anispeed);
+		transform-origin: 0 100%;
+	}
+	.effect-sweep-down:hover::before { 
+		transform: scaleY(0);
+	}
+	.effect-sweep-left {
+		background-color: var(--glowcolor);
+		transform: scaleX(1);
+	}
+	.effect-sweep-left:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleX(1);
+		transition: var(--anispeed);
+		transform-origin: 0 100%;
+	}
+	.effect-sweep-left:hover::before { 
+		transform: scaleX(0);
+	}
+	.effect-sweep-right {
+		background-color: var(--glowcolor);
+		transform: scaleX(1);
+	}
+	.effect-sweep-right:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleX(1);
+		transition: var(--anispeed);
+		transform-origin: 100% 0;
+	}
+	.effect-sweep-right:hover::before { 
+		transform: scaleX(0);
+	}
+	.effect-sweep-from-up-right {
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-from-up-right:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--glowcolor);
+		transform: scaleY(0) scaleX(0);
+		transition: var(--anispeed);
+		transform-origin: 100% 0;
+	}
+	.effect-sweep-from-up-right:hover::before { 
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-from-down-left {
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-from-down-left:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--glowcolor);
+		transform: scaleY(0) scaleX(0);
+		transition: var(--anispeed);
+		transform-origin: 0 100%;
+	}
+	.effect-sweep-from-down-left:hover::before { 
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-to-up-right {
+		background-color: var(--glowcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-to-up-right:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+		transition: var(--anispeed);
+		transform-origin: 100% 0;
+	}
+	.effect-sweep-to-up-right:hover::before { 
+		transform: scaleY(0) scaleX(0);
+	}
+	.effect-sweep-to-down-left {
+		background-color: var(--glowcolor);
+		transform: scaleY(1) scaleX(1);
+	}
+	.effect-sweep-to-down-left:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: var(--border);
+		background-color: var(--boxcolor);
+		transform: scaleY(1) scaleX(1);
+		transition: var(--anispeed);
+		transform-origin: 0 100%;
+	}
+	.effect-sweep-to-down-left:hover::before { 
+		transform: scaleY(0) scaleX(0);
+	}
+	
+	/*Corner Effect*/
+	
+	.effect-corner-square:hover {
+		background-color: var(--glowcolor);
+		border-radius: 0;
+	}
+	.effect-corner-round:hover {
+		background-color: var(--glowcolor);
+		border-radius: 500px;
+	}
+	
+	.contact-form {
+		margin-top: 40px;
+		text-align: center;
+	}
+	
+	.contact-form h2 {
+		font-size: 24px;
+		margin-bottom: 15px;
+	}
+	
+	.contact-form input,
+	.contact-form textarea {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 15px;
+		border: none;
+		border-radius: var(--border);
+	}
+	
+	.contact-form input[type="submit"] {
+		background-color: var(--boxcolor);
+		color: var(--fc1);
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+	
+	.contact-form input[type="submit"]:hover {
+		background-color: var(--glowcolor);
+	}
+	
+	footer {
+		background-color: var(--headercolor);
+		padding: 20px;
+		text-align: center;
+	}
+	
+	footer p {
+		font-size: 14px;
+	}
+	
+	footer a {
+		color: var(--fc1);
+		text-decoration: none;
+		transition: var(--anispeed);
+	}
+	
+	footer a:hover {
+		color: var(--fc1);
+	}
+	
+	@media screen and (max-width: 600px) {
+		header, footer {
+			padding: 10px;
+		}
+	
+		nav ul {
+			flex-wrap: wrap;
+		}
+	
+		nav ul li {
+			margin: 5px;
+		}
+	
+		main h2 {
+			font-size: 24px;
+			margin-bottom: 15px;
+		}
+	
+		main p {
+			font-size: 16px;
+		}
+	
+		footer p {
+			font-size: 12px;
+		}
+	}
+	

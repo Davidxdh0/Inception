@@ -4,10 +4,18 @@
 FROM nginx:bookworm
 
 RUN apt-get update
+RUN apt-get add openssl
+RUN apt-get add nginx
+
+COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/index.html /var/www/html/index.html
+COPY srcs/style.css /var/www/html/style.css
+
+RUN apt-get update
 RUN apt-get install -y nginx openssl curl
 RUN apt-get -y install libfcgi0ldbl
 
-COPY conf/nginx.conf /etc/nginx/sites-available/default.conf
+COPY nginx.conf /etc/nginx/sites-available/default.conf
 COPY start.sh .
 RUN chmod +x start.sh
 
@@ -26,4 +34,4 @@ CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 #docker build . -t inception/nginx
 #docker run -d -p 443:443 inception/nginx
 
-FROM debian:buster
+# FROM debian:buster
