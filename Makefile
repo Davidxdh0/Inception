@@ -3,7 +3,9 @@ all: up
 build:
 
 up: 
-	docker network create app-inception
+	mkdir -p ~/home/dyeboa/data/mariadb
+	mkdir -p ~/home/dyeboa/data/wordpress
+# docker network create app-wordpress
 	docker compose -f ./srcs/docker-compose.yml up -d
 
 clean: 
