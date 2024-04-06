@@ -1,29 +1,37 @@
-#https://www.baeldung.com/linux/nginx-docker-container
-#https://www.nginx.com/blog/deploying-nginx-nginx-plus-docker/
-#https://github.com/karthequian/docker-helloworld/blob/master/Dockerfile
-FROM nginx:bookworm
+# #https://www.baeldung.com/linux/nginx-docker-container
+# #https://www.nginx.com/blog/deploying-nginx-nginx-plus-docker/
+# #https://github.com/karthequian/docker-helloworld/blob/master/Dockerfile
+# FROM nginx:bullseye
 
-RUN apt-get update
-RUN apt-get install -y nginx openssl curl
-RUN apt-get -y install libfcgi0ldbl
+# # RUN apt-get update
+# # RUN apt-get install -y nginx openssl curl
+# # RUN apt-get -y install libfcgi0ldbl
 
-COPY conf/nginx.conf /etc/nginx/sites-available/default.conf
-COPY start.sh .
-RUN chmod +x start.sh
+# COPY conf/nginx.conf /etc/nginx/conf.d/default.conf. 
 
-RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
+# # COPY start.sh .
+# # RUN chmod +x start.sh
 
-RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/nginx/key.key -out /etc/nginx/crt.crt -subj "/CN=dyeboa.42.fr"
+# # RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
-EXPOSE 443     
+# # RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/nginx/key.key -out /etc/nginx/crt.crt -subj "/CN=dyeboa.42.fr"
 
-ENTRYPOINT [ "./start.sh" ]
+# EXPOSE 80   
 
-# Set the default command to execute
-# when creating a new container
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+# # ENTRYPOINT [ "./start.sh" ]
 
-#docker build . -t inception/nginx
-#docker run -d -p 443:443 inception/nginx
+# # Set the default command to execute
+# # when creating a new container
+# CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 
-FROM debian:buster
+# #docker build . -t inception/nginx
+# #docker run -d -p 443:443 inception/nginx
+
+FROM debian:bullseye
+
+RUN apt-get update && apt-get install -y nginx; \
+ echo "daemon off;" >> /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["/usr/sbin/nginx"]
