@@ -5,17 +5,15 @@ version: '3'
 
 services:
   nginx:
-    # build: requirements/nginx
-    image: nginx:latest
+    build: requirements/nginx
+    # image: nginx:latest
     # hostname: dyeboa.42.fr
     container_name: nginx
     ports:
-      - "443:443"
-      - "80:80"
+      - 443:443
+      - 8080:8080
     volumes:
-    - ./wordpress:/var/www/html
-    # - ~/dyeboa/data/nginx:/etc/nginx/conf.d
-    # - ./nginx-conf:/etc/nginx/conf.d
+    - /home/dyeboa/data/wordpress:/var/www/html
     networks:
       inception-wordpress:
       # ipv4_address: 127.0.0.10
@@ -26,9 +24,10 @@ services:
     image: mariadb:latest
     environment:
     - MARIADB_DATABASE=wordpress
+    init: true
     volumes:
-    - ~/data/mariadb:/var/lib/mysql
-    # - db:/var/lib/mysql
+    - /home/dyeboa/data/mariadb:/var/lib/mysql
+    - /home/dyeboa/data/mariadb/config:/etc/mysql/conf.d
     restart: always
     networks:
       inception-wordpress:
@@ -43,26 +42,12 @@ services:
     - WORDPRESS_DB_NAME=wordpress
     - WORDPRESS_DB_USER=$MYSQL_USER
     - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+    init: true
     volumes:
-    # - wp:/var/www/html
-    - ~/data/wordpress:/var/www/html
+    - /home/dyeboa/data/wordpress:/var/www/html
     networks:
       inception-wordpress:
       # ipv4_address: 127.0.0.30
-
-volumes:
-  db:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/dyeboa/data/mariadb
-  wp:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/dyeboa/data/wordpress
 
 networks:
   inception-wordpress:

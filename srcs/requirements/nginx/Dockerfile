@@ -3,11 +3,21 @@
 # #https://github.com/karthequian/docker-helloworld/blob/master/Dockerfile
 # FROM nginx:bullseye
 
-# # RUN apt-get update
-# # RUN apt-get install -y nginx openssl curl
-# # RUN apt-get -y install libfcgi0ldbl
+RUN apt-get update
+RUN apt-get add openssl
+RUN apt-get add nginx
 
-# COPY conf/nginx.conf /etc/nginx/conf.d/default.conf. 
+COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/index.html /var/www/html/index.html
+COPY srcs/style.css /var/www/html/style.css
+
+RUN apt-get update
+RUN apt-get install -y nginx openssl curl
+RUN apt-get -y install libfcgi0ldbl
+
+COPY nginx.conf /etc/nginx/sites-available/default.conf
+COPY start.sh .
+RUN chmod +x start.sh
 
 # # COPY start.sh .
 # # RUN chmod +x start.sh
@@ -24,14 +34,4 @@
 # # when creating a new container
 # CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 
-# #docker build . -t inception/nginx
-# #docker run -d -p 443:443 inception/nginx
-
-FROM debian:bullseye
-
-RUN apt-get update && apt-get install -y nginx; \
- echo "daemon off;" >> /etc/nginx/nginx.conf
-
-EXPOSE 80
-
-CMD ["/usr/sbin/nginx"]
+# FROM debian:buster
