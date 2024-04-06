@@ -1,0 +1,65 @@
+#https://docs.docker.com/compose/environment-variables/env-file/
+#https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/wordpress/README.md
+#https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-3-defining-services-with-docker-compose
+version: '3'
+
+services:
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+    - ~/dyeboa/data/nginx:/etc/nginx/conf.d
+    - ./nginx-conf:/etc/nginx/conf.d
+    networks:
+      app-wordpress:
+#       ipv4_address: 127.0.0.10
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb/
+    environment:
+    - MARIADB_DATABASE=wordpress
+    volumes:
+    - db:/var/lib/mysql
+    restart: always
+    networks:
+      app-wordpress:
+#       ipv4_address: 127.0.0.20
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    restart: always
+    environment:
+    - WORDPRESS_DB_NAME=wordpress
+    - WORDPRESS_DB_USER=$MYSQL_USER
+    - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+    volumes:
+    - wp:/var/www/html
+    networks:
+      app-wordpress:
+#       ipv4_address: 127.0.0.30
+
+# The user-defined bridge network app-network enables communication between 
+# your containers since they are on the same Docker daemon host. 
+
+networks:
+  app-inception:
+    external: true
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dyeboa/data/mariadb
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dyeboa/data/wordpress
