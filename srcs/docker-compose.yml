@@ -1,9 +1,175 @@
-version: '3'
+# version: '3.9'
 
+# services:
+#   nginx:
+#     # build: ./requirements/nginx/.
+#     container_name: nginx
+#     volumes:
+#       - wp:/var/www/wordpress
+#     networks:
+#       - network-inception
+#     env_file: .env
+#     ports:
+#       - 443:443
+#     restart: on-failure
+#     depends_on:
+#       - wordpress
+  
+#   wordpress:
+#     # build: ./requirements/wordpress
+#     volumes:
+#       - wp:/var/www/wordpress
+#     restart: always
+#     # ports:
+#     #   - 8080:80
+#     networks:
+#       - network-inception
+#     env_file: .env
+#     depends_on:
+#       - mariadb
+
+#   mariadb:
+#     # build: ./requirements/mariadb
+#     restart: always
+#     volumes:
+#      - mariadb-data:/var/lib/mysql
+    # networks:
+    #   - network-inception
+#     env_file: .env
+
+# networks:
+#   network-inception:
+#   driver: bridge
+# volumes: 
+#   wp:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/daaf/data/wordpress
+#       o: bind
+#   mariadb-data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/daaf/data/mariadb
+#       o: bind
+
+# ------------------------------------------------------------------------------  
+
+# services:
+#   # nginx:
+#   #   image: nginx
+#   #   # build: ./requirements/nginx/.
+#   #   container_name: nginx
+#   #   volumes:
+#   #     - wp_data:/var/www/wordpress
+#   #   volumes_from:
+#   #     - wordpress
+#   #   env_file: .env
+#   #   ports:
+#   #     - 443:443
+#   #     - 8080:80
+#   #   restart: on-failure
+#   #   networks:
+#   #     - network-inception
+#   #   depends_on:curl
+#       # - .env
+#     # networks:
+#     #   - network-inception
+#   wordpress:
+#     container_name: wordpress
+#     image: wordpress:latest
+#     volumes:
+#       - wp_data:/var/www/wordpress
+#     restart: always
+#     ports:
+#       - 8080:80
+#       - 443:443
+#     networks:
+#       - network-inception
+#     # env_file: .env
+#     environment:
+#       WORDPRESS_DB_HOST: db
+#       WORDPRESS_DB_USER: me_prname
+#       WORDPRESS_DB_PASSWORD: password123
+#       WORDPRESS_DB_NAME: udb_test
+#     depends_on:
+#     - mariadb
+
+#   mariadb:
+#     image: mariadb:latest
+#     # build: ./requirements/mariadb
+#     restart: always
+#     volumes:
+#       - mdb_data:/var/lib/mysql
+#     networks:
+#       - network-inception
+#     # env_file: .env
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password123 # any random string will do
+#       MYSQL_DATABASE: udb_test # the name of your mysql database
+#       MYSQL_USER: me_prname # the name of the database user
+#       MYSQL_PASSWORD: password123 # the password of the mysql user
+
+# volumes: 
+#   wp_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/daaf/inception/data/wordpress
+#       o: bind
+#   mdb_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/daaf/inception/data/mariadb
+#       o: bind
+
+# networks:
+#   network-inception:
+#     driver: bridge
+
+    
+# ------------------------------------------------------------------------------  
 services:
-  nginx:
-    build: requirements/nginx
-    container_name: nginx
+
+  wordpress:
+    image: wordpress:latest
+    # build: ./requirements/wordpress
+    restart: always
+    ports:
+      - 8080:80
+    env_file: .env
+    networks:
+      - network-inception
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    command: [nginx-debug, '-g', 'daemon off;']
+      - wordpress:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file: .env
+    networks:
+      - network-inception
+    volumes:
+      - db:/var/lib/mysql
+
+volumes: 
+  wordpress:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/daaf/inception/data/wordpress
+    #   o: bind
+  db:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/daaf/inception/data/mariadb
+    #   o: bind
+
+networks:
+  network-inception:
+    driver: bridge

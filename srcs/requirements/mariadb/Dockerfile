@@ -1,12 +1,11 @@
-FROM debian:bookworm
+FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y 
-RUN apt-get install -y mariadb-server mariadb-client nano
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client procps gettext-base
 
-COPY setup.sh /tmp/
+COPY 50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+COPY setup.sh /
+COPY initdb.sql.template /docker-entrypoint-initdb.d/
 
-RUN chmod +x /tmp/setup.sh
-RUN sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/' -i  /etc/mysql/mariadb.conf.d/50-server.cnf
-RUN sed 's/skip-networking/#skip-networking/g' -i  /etc/mysql/mariadb.conf.d/50-server.cnf 
+RUN chmod +x setup.sh
 
-ENTRYPOINT ["/tmp/setup.sh"]
+ENTRYPOINT ["bash", "setup.sh"]
