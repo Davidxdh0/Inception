@@ -2,6 +2,14 @@ NAME = v1
 
 all: clean build up
 
+wordpress:
+	docker build -t "davidwp" ./srcs/requirements/wordpress
+	docker run --rm -it davidwp /bin/sh
+
+mariadb:
+	docker build -t "davidwp" ./srcs/requirements/mariadb
+	docker run --rm -it davidwp /bin/sh
+
 build: 
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
@@ -21,6 +29,7 @@ down:
 clean: 
 	docker compose -f ./srcs/docker-compose.yml down -v
 #	docker stop $(docker ps -a -q)
+# 	docker rmi $(docker images -q --filter "dangling=true")
 
 cclean:
 	docker system prune -af
