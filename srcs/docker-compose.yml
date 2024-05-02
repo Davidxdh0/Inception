@@ -1,58 +1,59 @@
-# version: '3.9'
-
-# services:
-#   nginx:
-#     # build: ./requirements/nginx/.
-#     container_name: nginx
-#     volumes:
-#       - wp:/var/www/wordpress
-#     networks:
-#       - network-inception
-#     env_file: .env
-#     ports:
-#       - 443:443
-#     restart: on-failure
-#     depends_on:
-#       - wordpress
+services:
+  nginx:
+    build: ./requirements/nginx/.
+    image: nginx:dyeboa
+    container_name: nginx
+    volumes:
+      - wp:/var/www/html  
+    networks:
+      - network-inception
+    env_file: .env
+    ports:
+      - 443:443
+    restart: always
+    depends_on:
+      - wordpress
   
-#   wordpress:
-#     # build: ./requirements/wordpress
-#     volumes:
-#       - wp:/var/www/wordpress
-#     restart: always
-#     # ports:
-#     #   - 8080:80
-#     networks:
-#       - network-inception
-#     env_file: .env
-#     depends_on:
-#       - mariadb
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress:dyeboa
+    volumes:
+      - wp:/var/www/html
+    restart: always
+    networks:
+      - network-inception
+    env_file: .env
+    depends_on:
+      - mariadb
 
-#   mariadb:
-#     # build: ./requirements/mariadb
-#     restart: always
-#     volumes:
-#      - mariadb-data:/var/lib/mysql
-    # networks:
-    #   - network-inception
-#     env_file: .env
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb:dyeboa
+    restart: always
+    volumes:
+     - mariadb:/var/lib/mysql
+    networks:
+      - network-inception
+    env_file: .env
 
-# networks:
-#   network-inception:
-#   driver: bridge
-# volumes: 
-#   wp:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/daaf/data/wordpress
-#       o: bind
-#   mariadb-data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/daaf/data/mariadb
-#       o: bind
+networks:
+  network-inception:
+    name: inception-network
+    driver: bridge
+
+volumes: 
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/daaf/data/wordpress
+      o: bind
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/daaf/data/mariadb
+      o: bind
 
 # ------------------------------------------------------------------------------  
 
@@ -131,45 +132,45 @@
 
     
 # ------------------------------------------------------------------------------  
-services:
+# services:
 
-  wordpress:
-    image: wordpress:latest
-    # build: ./requirements/wordpress
-    restart: always
-    ports:
-      - 8080:80
-    env_file: .env
-    networks:
-      - network-inception
-    volumes:
-      - wordpress:/var/www/html
-    depends_on:
-      - db
+#   wordpress:
+#     image: wordpress:latest
+#     # build: ./requirements/wordpress
+#     restart: always
+#     ports:
+#       - 8080:80
+#     env_file: .env
+#     networks:
+#       - network-inception
+#     volumes:
+#       - wordpress:/var/www/html
+#     depends_on:
+#       - db
 
-  db:
-    image: mysql:8.0
-    restart: always
-    env_file: .env
-    networks:
-      - network-inception
-    volumes:
-      - db:/var/lib/mysql
+#   db:
+#     image: mysql:8.0
+#     restart: always
+#     env_file: .env
+#     networks:
+#       - network-inception
+#     volumes:
+#       - db:/var/lib/mysql
 
-volumes: 
-  wordpress:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /home/daaf/inception/data/wordpress
-    #   o: bind
-  db:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /home/daaf/inception/data/mariadb
-    #   o: bind
+# volumes: 
+#   wordpress:
+#     # driver: local
+#     # driver_opts:
+#     #   type: none
+#     #   device: /home/daaf/inception/data/wordpress
+#     #   o: bind
+#   db:
+#     # driver: local
+#     # driver_opts:
+#     #   type: none
+#     #   device: /home/daaf/inception/data/mariadb
+#     #   o: bind
 
-networks:
-  network-inception:
-    driver: bridge
+# networks:
+#   network-inception:
+#     driver: bridge

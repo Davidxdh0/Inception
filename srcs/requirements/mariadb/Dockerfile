@@ -1,11 +1,22 @@
+#https://www.datacamp.com/tutorial/set-up-and-configure-mysql-in-docker
+#https://exampleconfig.com/view/mariadb-ubuntu18-04-etc-mysql-mariadb-conf-d-50-server-cnf
+
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y mariadb-server mariadb-client procps gettext-base
+RUN apt-get update -y && apt-get upgrade -y &&  apt-get install -y mariadb-server
 
-COPY 50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY setup.sh /
-COPY initdb.sql.template /docker-entrypoint-initdb.d/
+RUN mkdir -p /var/run/mysqld 
+RUN chown -R mysql:mysql /run/mysqld 
+RUN chown -R mysql:mysql /var/lib/mysql
+RUN chmod 777 /run/mysqld
 
+COPY ./conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+
+COPY ./tools/setup.sh .
 RUN chmod +x setup.sh
 
-ENTRYPOINT ["bash", "setup.sh"]
+# COPY initdb.sql.template /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
+
+ENTRYPOINT ["bash", "./setup.sh"]

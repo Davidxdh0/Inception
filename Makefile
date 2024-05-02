@@ -7,10 +7,13 @@ wordpress:
 	docker run --rm -it davidwp /bin/sh
 
 mariadb:
-	docker build -t "davidwp" ./srcs/requirements/mariadb
-	docker run --rm -it davidwp /bin/sh
+	docker build -t "davidmdb" ./srcs/requirements/mariadb
+	docker run --rm -it davidmdb mysql -u username -p
 
 build: 
+	mkdir -p /home/daaf/data
+	mkdir -p /home/daaf/data/wordpress
+	mkdir -p /home/daaf/data/mariadb
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
 images: docker images
@@ -20,14 +23,12 @@ up:
 # mkdir -p ~/home/dyeboa/data/mariadb
 # mkdir -p ~/home/dyeboa/data/wordpress
 # docker network create app-wordpress
-	
-restart: clean build up
 
 down: 
 	docker compose -f ./srcs/docker-compose.yml down -v
 
 clean: 
-	docker compose -f ./srcs/docker-compose.yml down -v
+	docker compose -f ./srcs/docker-compose.yml down -v --rmi all --remove-orphans
 #	docker stop $(docker ps -a -q)
 # 	docker rmi $(docker images -q --filter "dangling=true")
 
@@ -39,5 +40,4 @@ ps:
 cls: 
 	docker container ls
 
-# find /var/www/wordpress -type d -exec chmod 755 {} \;
-# find /var/www/wordpress -type f -exec chmod 644 {} \;
+#tail -f /var/log/nginx/error.log
