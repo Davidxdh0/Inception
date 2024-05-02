@@ -17,13 +17,14 @@ RUN chown -R www-data:www-data /var/www/html
 
 RUN mkdir -p /etc/nginx/conf.d	
 
-COPY ./conf/nginx.conf   /etc/nginx/sites-available/default
+# COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/sites-available/default
 
-RUN openssl req -x509 -nodes -newkey rsa:2048 \
-	-keyout /etc/nginx/ssl/key.key \
-	-out /etc/nginx/ssl/crt.crt \
-	-subj "/CN=dyeboa.42.fr"
+COPY ./index.html /var/www/html/index.html
+RUN chmod 644 /var/www/html/index.html 
 
-EXPOSE 443 
+RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/crt.crt -subj "/CN=dyeboa.42.fr"
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

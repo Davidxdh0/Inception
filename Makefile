@@ -14,7 +14,7 @@ build:
 	mkdir -p /home/daaf/data
 	mkdir -p /home/daaf/data/wordpress
 	mkdir -p /home/daaf/data/mariadb
-	docker compose -f ./srcs/docker-compose.yml up --build -d
+	docker compose -f ./srcs/docker-compose.yml up --build 
 
 images: docker images
 

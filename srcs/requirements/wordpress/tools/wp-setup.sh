@@ -15,7 +15,8 @@ then
 
     mv wp-cli.phar /usr/local/bin/wp;
 
-	tar -xvf latest.tar.gz && rm /var/www/latest.tar.gz;
+	tar -xvf latest.tar.gz 
+	rm /var/www/html/latest.tar.gz;
 
     mv wordpress/* .;
 
