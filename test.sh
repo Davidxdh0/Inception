@@ -26,6 +26,6 @@ echo "---------- 80 --------------"
 echo "---------- 80 --------------"
 
 echo "---------- 3306 --------------"
-curl --insecure https://localhost:3306
-curl --insecure http://localhost:3306
+curl --insecure https://localhost:33006
+curl --insecure http://localhost:33006
 echo "---------- 3306 --------------"

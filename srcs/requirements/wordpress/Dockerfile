@@ -2,12 +2,7 @@ FROM debian:bullseye
 
 #Install all requiered packages.
 RUN apt-get update -y && apt-get install -y \
-	# net-tools 
-    # php \
-    # php-mysql \
-    # php7.4-fpm \
-    # mysql \
-	# curl
+	nano \
 	php7.4 \
 	php7.4-curl \
 	php7.4-mysql \
@@ -22,10 +17,11 @@ RUN chmod -R 755 /var/www/html
 
 COPY ./tools/wp-setup.sh /wp-setup.sh
 COPY ./conf/my-wp-config.php /var/www/html/my-wp-config.php
+COPY ./conf/my-wp-config2.php /var/www/html/my-wp-config2.php
 
 RUN chmod +x /wp-setup.sh
 
-EXPOSE 9000
+# EXPOSE 9000
 
 ENTRYPOINT ["/wp-setup.sh", "php-fpm7.4", "-F"]
 

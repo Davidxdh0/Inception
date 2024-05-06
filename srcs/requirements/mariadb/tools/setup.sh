@@ -1,19 +1,57 @@
 #!bin/bash
 
-service mariadb start;
-sleep 5;
+# service mariadb start;
+# sleep 2;
 
-if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]
-then
-    echo "Creating database: ${MYSQL_DATABASE}"
+# if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]
+# then
+#     echo "Creating database: ${MYSQL_DATABASE}"
 
-    mysql -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;"
-    mysql -e "CREATE USER IF NOT EXISTS  \`${MYSQL_USER}\`@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-    mysql -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-    mysql -e "FLUSH PRIVILEGES;"
-fi
-service mariadb stop;
-exec mysqld_safe
+#     mysql -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;"
+#     mysql -e "CREATE USER IF NOT EXISTS  \`${MYSQL_USER}\`@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+#     mysql -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+# 	# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY  '$MYSQL_ROOT_PASSWORD';"
+#     mysql -e "FLUSH PRIVILEGES;"
+# fi
+# service mariadb stop;
+# echo "exec mysqld"
+# exec mysqld_safe
+
+# mysql -h 127.0.0.1 -P 3306 -u testuser -p --database=wordpress_data
+# mysql -h 127.0.0.1 -P 3306 -u root -p
+# testpw
+# \s - status
+# \g - send command
+# SHOW DATABASES;
+# use wordpress_data
+# SHOW GRANTS FOR CURRENT_USER;
+
+#-----------------------------------
+
+mysqld --skip-grant-tables --skip-networking &
+sleep 5
+# SQL init commands.
+cat << EOF > init.sql
+    FLUSH PRIVILEGES;
+    CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+    
+    FLUSH PRIVILEGES;
+    CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+    GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'%';
+    FLUSH PRIVILEGES;
+
+    ALTER USER 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+    FLUSH PRIVILEGES;
+
+EOF
+
+# Restarting MariaDB with init file
+mysqladmin -u root shutdown
+echo "Mariadb initialized and started ..."
+mysqld --init-file=/init.sql
+echo "Error in starting MariaDB ..."
+
+#-----------------------------------
 
 
 # if [ ! -d /run/mysqld ] #checks if the database is not already set up

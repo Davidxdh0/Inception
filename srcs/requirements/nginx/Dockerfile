@@ -11,19 +11,18 @@ RUN apt-get update -y && apt-get install -y nginx openssl curl
 
 RUN mkdir -p /etc/nginx/ssl
 RUN mkdir -p /var/www/html
+RUN mkdir -p /etc/nginx/conf.d	
 
 RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html 
 
-RUN mkdir -p /etc/nginx/conf.d	
-
-# COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./conf/nginx.conf /etc/nginx/sites-available/default
 
-COPY ./index.html /var/www/html/index.html
-RUN chmod 644 /var/www/html/index.html 
-
-RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/crt.crt -subj "/CN=dyeboa.42.fr"
+RUN openssl req -x509 -nodes -newkey rsa:2048 \
+	-keyout /etc/nginx/ssl/key.key \
+	-out /etc/nginx/ssl/crt.crt \
+	-subj "/CN=dyeboa.42.fr"
 
 EXPOSE 443
 
