@@ -22,9 +22,6 @@ images: docker images
 
 up: 
 	docker compose -f ./srcs/docker-compose.yml up
-# mkdir -p ~/home/dyeboa/data/mariadb
-# mkdir -p ~/home/dyeboa/data/wordpress
-# docker network create app-wordpress
 
 down: 
 	docker compose -f ./srcs/docker-compose.yml down -v

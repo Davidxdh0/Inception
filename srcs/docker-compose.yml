@@ -1,3 +1,7 @@
+#https://docs.docker.com/compose/environment-variables/env-file/
+#https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/wordpress/README.md
+#https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-3-defining-services-with-docker-compose
+
 services:
   nginx:
     build: ./requirements/nginx/.
