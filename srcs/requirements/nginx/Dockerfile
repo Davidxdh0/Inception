@@ -17,7 +17,6 @@ RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html 
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
 
 RUN openssl req -x509 -nodes -newkey rsa:2048 \
 	-keyout /etc/nginx/ssl/key.key \

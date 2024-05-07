@@ -2,10 +2,10 @@ FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install -y \
 	nano \
-	php7.4 \
-	php7.4-curl \
-	php7.4-mysql \
-	php7.4-fpm \
+	php \
+	php-curl \
+	php-mysql \
+	php-fpm \
 	curl
 
 RUN mkdir -p /run/php

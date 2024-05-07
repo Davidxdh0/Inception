@@ -15,7 +15,7 @@ then
 
 	echo "Setting up wp-config.php";
     cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php;
-    sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf;
+
     sed -i 's/database_name_here/'$MYSQL_DATABASE'/g' /var/www/html/wp-config.php;
     sed -i 's/username_here/'$MYSQL_USER'/g' /var/www/html/wp-config.php;
     sed -i 's/password_here/'$MYSQL_PASSWORD'/g' /var/www/html/wp-config.php;
@@ -28,8 +28,13 @@ then
     wp user create --allow-root $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PW --role='author';
     
 fi
+echo "Setting up php-fpm listen";
+# cat /etc/php/7.4/fpm/pool.d/www.conf
+sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf;
+
 echo "WP succesfully installed & configured"
 
-# /usr/sbin/php-fpm7.4 -F
 # https://stackoverflow.com/questions/32255814/what-purpose-does-using-exec-in-docker-entrypoint-scripts-serve/32261019#32261019
+# executes the parameters after the script in the dockerfile at line: ENTRYPOINT ["/wp-setup.sh", "php-fpm7.4", "-F"]
+# same as: php-fpm7.4 -F
 exec "$@";
