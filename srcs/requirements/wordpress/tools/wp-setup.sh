@@ -36,5 +36,5 @@ echo "WP succesfully installed & configured"
 
 # https://stackoverflow.com/questions/32255814/what-purpose-does-using-exec-in-docker-entrypoint-scripts-serve/32261019#32261019
 # executes the parameters after the script in the dockerfile at line: ENTRYPOINT ["/wp-setup.sh", "php-fpm7.4", "-F"]
-# same as: php-fpm7.4 -F
-exec "$@";
+# exec "$@"; - forbidden use it.
+php-fpm7.4 -F

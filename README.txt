@@ -48,20 +48,3 @@ https://make.wordpress.org/cli/handbook/guides/quick-start/
 #https://docs.docker.com/compose/compose-file/05-services/
 #https://www.techrepublic.com/article/how-to-build-a-docker-compose-file/
 #https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-3-defining-services-with-docker-compose
-# nginx - /etc/host/~ DOMAIN_NAME=dyeboa.42.fr
-
-MARIADB_ROOT_HOST=localhost
-MARIADB_ROOT_PASSWORD=komkijken
-
-MARIADB_DATABASE=mydb
-MARIADB_USER=leonardo
-MARIADB_PASSWORD=delmari
-
-WP_USER=SysUser
-WP_USERPWD=Salmari
-WP_USER_2=User
-WP_USER_2_PWD=Babylon
-
-MYSQL_ROOT_PASSWORD=faad
-MYSQL_USER=mysql
-MYSQL_PASSWORD=mysql

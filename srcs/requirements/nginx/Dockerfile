@@ -3,7 +3,7 @@
 # #https://github.com/karthequian/docker-helloworld/blob/master/Dockerfile
 # https://www.digitalocean.com/community/tutorials/how-to-configure-the-nginx-web-server-on-a-virtual-private-server
 
-FROM nginx:bullseye
+FROM debian:bullseye
 
 LABEL maintainer="by dyeboa"
 

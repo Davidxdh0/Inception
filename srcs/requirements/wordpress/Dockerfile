@@ -18,4 +18,4 @@ COPY ./tools/wp-setup.sh /wp-setup.sh
 
 RUN chmod +x /wp-setup.sh
 
-ENTRYPOINT ["/wp-setup.sh", "php-fpm7.4", "-F"]
+ENTRYPOINT ["/wp-setup.sh"]
