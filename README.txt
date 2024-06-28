@@ -3,7 +3,7 @@ Useful docker links
 	-	https://gabrieltanner.org/blog/docker-compose/
 	-	https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
 	-	5 parts: https://www.massolit-media.com/technical-writing/local-wordpress-development-environment-with-docker/
-	-	docker compose: https://www.youtube.com/watch?v=SXwC9fSwct8
+	-	docker compose: https://www.youtube.com/watch?v=SXwC9fSwct8 
 
 wordpress:
 	-	https://make.wordpress.org/cli/handbook/guides/installing/
