@@ -1,11 +1,3 @@
-VirtualBox setup:
-	Debian
-	autologin
-	no standby
-	passwordless ssh
-	start on startup: VBoxManage startvm "VM-Inception" --type separate
-
-VM passwordless ssh: https://medium.com/@ravipatel.it/setting-up-passwordless-ssh-between-a-virtual-machine-ubuntu-and-host-machine-using-virtualbox-70145717153f
 Useful docker links
 	-	https://takacsmark.com/dockerfile-tutorial-by-example-dockerfile-best-practices-2018/
 	-	https://gabrieltanner.org/blog/docker-compose/
@@ -23,3 +15,15 @@ mariadb:
 	
 nginx:
 	-	find better: https://www.nginx.com/blog/deploying-nginx-nginx-plus-docker/
+
+Virtualbox ubuntu setup:
+	make user sudo: -> https://askubuntu.com/questions/147241/execute-sudo-without-password
+	install ssh server -> sudo apt install ssh - might want to change port & disable root login.
+	start ssh: sudo systemctl start ssh
+	vm settings: autologin, no password == settings -> system -> users -> automated login: on
+	vm settings: no standby 	    == settings -> privacy & security -> automated screen lock: off && lock screen on suspend: off
+	start on startup: cmd + a -> "Startup appliction preferences" -> "add" -> name: start vm, command: VBoxManage startvm "name of vm" --type separate, comment: starting vm on startup
+	virtualbox - vm machine - settings -> networking -> advanced: cable connected: on
+	virtualbox - vm machine - settings -> networking -> advanced -> port forwarding: host ip: 127.0.0.1 (command on main os: 'ip a') - host port: '3022' - guest ip: (command on vm os: 'ip a') take the second one - port: the one ssh is listening (default 22)
+	passwordless ssh: https://medium.com/@ravipatel.it/setting-up-passwordless-ssh-between-a-virtual-machine-ubuntu-and-host-machine-using-virtualbox-70145717153f
+	Add port forwarding for nginx.
